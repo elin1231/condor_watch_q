@@ -623,6 +623,12 @@ def display_temporary_message(msg, enabled=True):
         yield
 
 
+# get_schedd would only return these attributes
+# add to this so that identify if dagman job, if dagman, query again to get information on that job (dag specific information, pipe that to system)
+# Find nodes log
+# Collapse all cluster appear in query, associate with dag instead,
+# Every job in dag has special (submit event node, belong to certian dag node)
+# right now:
 PROJECTION = ["ClusterId", "Owner", "UserLog", "JobBatchName", "Iwd"]
 
 
@@ -726,6 +732,7 @@ def get_schedd(collector=None, schedd=None):
     return schedd
 
 
+# tracks state, (group by cluster id)
 class Cluster:
     """Holds the job state for a singe cluster."""
 
@@ -753,6 +760,7 @@ class Cluster:
         return iter(self.items())
 
 
+# keeps track of clusters
 class JobStateTracker:
     """
     Tracks the job state from many event logs,
