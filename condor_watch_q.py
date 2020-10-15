@@ -847,6 +847,7 @@ class JobStateTracker:
                         event_log_path, e
                     )
                 )
+                sys.exit(1)
 
         self.event_readers = event_readers
         self.state = collections.defaultdict(lambda: collections.defaultdict(dict))
@@ -1382,8 +1383,19 @@ def safe_divide(numerator, denominator, default=0):
         return default
 
 
+warning_count = 0
+
+
 def warning(msg):
-    print(fmt_warning(msg), file=sys.stderr)
+    global warning_count
+    if warning_count < 11:
+        print(fmt_warning(msg), file=sys.stderr)
+        warning_count += 1
+    else:
+        print(
+            "Exceeded 10 errors, remaining errors will be ignored, use -debug to view all errors.",
+            file=sys.stderr,
+        )
 
 
 def fmt_warning(msg):

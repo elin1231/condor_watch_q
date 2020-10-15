@@ -1,0 +1,13 @@
+JOB  A  test.condor 
+JOB  B  test.condor
+JOB  C  test.condor
+JOB  D  test.condor
+JOB  E  test.condor
+JOB  F  test.condor
+JOB  G  test.condor
+JOB  H  test.condor
+JOB  I  test.condor
+
+PARENT A CHILD B C
+PARENT B CHILD D E F
+PARENT C CHILD G H I
